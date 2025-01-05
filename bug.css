@@ -1,0 +1,33 @@
+The following CSS code snippet demonstrates an uncommon error involving the `:has()` pseudo-class and specificity:
+
+```css
+.container:has(> p) {
+  background-color: lightblue;
+}
+
+p {
+  color: darkblue;
+}
+```
+
+This CSS aims to change the background color of the `.container` element only if it directly contains a `<p>` element. However, the `:has()` pseudo-class's specificity can be unexpectedly low in certain situations. If another more specific selector also targets the `.container`, it might override the styling applied by `:has()`.
+
+For example, if you have:
+
+```css
+.container.special {
+  background-color: lightgreen;
+}
+```
+
+And in your HTML:
+
+```html
+<div class="container special">
+  <p>Some text</p>
+</div>
+```
+
+The `background-color: lightgreen` will take precedence because `.container.special` has higher specificity than `.container:has(> p)`. This can be surprising, as the intent was to apply the `lightblue` background only when a `<p>` is a direct child.
+
+This situation highlights that specificity rules are critical when using advanced CSS selectors like `:has()`.  You might need to adjust the selector's specificity (e.g., by adding an extra class) or use `!important` (generally discouraged) to ensure the desired styling prevails.
