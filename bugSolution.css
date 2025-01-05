@@ -1,0 +1,29 @@
+Several solutions address the specificity issue:
+
+**1. Increase Specificity of :has() Selector:**  We can add a class to the container to increase its specificity.
+
+```css
+.container-has-p:has(> p) {
+  background-color: lightblue;
+}
+```
+
+And update your HTML:
+
+```html
+<div class="container container-has-p">
+  <p>Some text</p>
+</div>
+```
+
+**2.  Using a More Specific Parent Selector (If Applicable):** If possible, modify the parent selector to be more specific to the situation where you want the `:has()` rule to apply.
+
+**3. (Less Recommended) Using `!important`:** This is generally discouraged due to its potential for widespread cascading issues.
+
+```css
+.container:has(> p) {
+  background-color: lightblue !important;
+}
+```
+
+Choose the solution that best fits your overall CSS structure and maintainability.  Adding a specific class is usually the most robust approach.
